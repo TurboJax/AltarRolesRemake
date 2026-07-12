@@ -1,0 +1,6 @@
+name: AltarRolesRemake
+version: '${version}'
+
+main: org.turbojax.altarroles.AltarRoles
+api-version: '26.1.2'
+load: POSTWORLD
