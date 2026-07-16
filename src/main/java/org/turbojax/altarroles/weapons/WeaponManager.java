@@ -19,13 +19,13 @@ public class WeaponManager {
         return detector.isHyperion(item);
     }
 
-    public static boolean isNightPiercer(ItemStack item) {
+    public static boolean isNightpiercer(ItemStack item) {
         if (detector == null) {
             AltarRoles.LOGGER.warn("No WeaponDetecter instance has been loaded.  Cannot check if the item is a Night Piercer.");
             return false;
         }
 
-        return detector.isNightPiercer(item);
+        return detector.isNightpiercer(item);
     }
 
     public static boolean isPaleCannon(ItemStack item) {
