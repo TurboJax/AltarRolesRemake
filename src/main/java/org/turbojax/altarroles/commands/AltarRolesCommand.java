@@ -13,7 +13,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.turbojax.altarroles.AltarRoles;
+import org.turbojax.altarroles.DataManager;
+import org.turbojax.altarroles.MainConfig;
 import org.turbojax.altarroles.Role;
 import org.turbojax.altarroles.WorldEvent;
 import org.turbojax.altarroles.util.AltarRolesArgumentTypes;
@@ -24,12 +25,6 @@ import java.util.List;
 public class AltarRolesCommand {
     private static final MiniMessage mm = MiniMessage.miniMessage();
     private static final MessageComponentSerializer msgSerializer = MessageComponentSerializer.message();
-
-    private final AltarRoles plugin;
-
-    public AltarRolesCommand(AltarRoles plugin) {
-        this.plugin = plugin;
-    }
 
     public LiteralCommandNode<CommandSourceStack> build(String label) {
         return Commands.literal(label)
