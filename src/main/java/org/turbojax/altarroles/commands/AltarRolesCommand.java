@@ -217,14 +217,14 @@ public class AltarRolesCommand {
             return 1;
         }
 
-        // Locking the targets roles
+        // Unlocking the targets roles
         targets.forEach(PlayerHelper::unlock);
 
         // Giving feedback
         if (targets.size() == 1) {
-            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+            sender.sendMessage(Component.text("Unlocked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
         } else {
-            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+            sender.sendMessage(Component.text("Unlocked " + targets.size() + " players roles"));
         }
 
         return 1;
@@ -241,14 +241,14 @@ public class AltarRolesCommand {
             return 1;
         }
 
-        // Locking the targets roles
-        targets.forEach(PlayerHelper::lock);
+        // Giving the targets hidden rot
+        targets.forEach(p -> PlayerHelper.setHiddenRot(p, true));
 
         // Giving feedback
         if (targets.size() == 1) {
-            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+            sender.sendMessage(targets.getFirst().displayName().append(Component.text(" now has hidden rot")));
         } else {
-            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+            sender.sendMessage(Component.text("Gave " + targets.size() + " players hidden rot"));
         }
 
         return 1;
@@ -265,14 +265,14 @@ public class AltarRolesCommand {
             return 1;
         }
 
-        // Locking the targets roles
-        targets.forEach(PlayerHelper::lock);
+        // Removing the targets hidden rot
+        targets.forEach(p -> PlayerHelper.setHiddenRot(p, false));
 
         // Giving feedback
         if (targets.size() == 1) {
-            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+            sender.sendMessage(targets.getFirst().displayName().append(Component.text(" no longer has hidden rot")));
         } else {
-            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+            sender.sendMessage(Component.text("Removed hidden rot from " + targets.size() + " players."));
         }
 
         return 1;
