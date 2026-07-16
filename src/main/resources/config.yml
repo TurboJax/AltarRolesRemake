@@ -1,0 +1,4 @@
+# Specifies the main altar plugin being used.
+# Allows this plugin to determine if an ItemStack is one of the legendary weapons.
+# Accepts "official", "kai", or "doomwen"
+altar_plugin: official
