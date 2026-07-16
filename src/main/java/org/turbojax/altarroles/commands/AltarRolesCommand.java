@@ -105,37 +105,25 @@ public class AltarRolesCommand {
             .build();
     }
 
+    private Component getStatusPart(Role team) {
+        int memberCount = DataManager.getMemberCount(team, false);
+        int onlineMemberCount = DataManager.getOnlineMemberCount(team, false);
+        boolean revealed = MainConfig.isRevealed(team);
+
+        return team.prettyName().append(mm.deserialize(" <white>team:\n" +
+                        " <dark_gray>- <white>Members: <white>%d <white>(<gold>%d <white>Online)\n" +
+                        " <dark_gray>- <white>Revealed: %s\n".formatted(memberCount, onlineMemberCount, revealed)));
+    }
+
     public int status(CommandContext<CommandSourceStack> ctx) {
-        // TODO: View status of all settings and team reveals
         CommandSender sender = ctx.getSource().getSender();
-        String fmt = """
-                  <gray>Human <white>team:
-                   <dark_gray>- <white>Members: <white>%d
-                   <dark_gray>- <white>Revealed: %s
-                  
-                  <dark_red>Vampire <white>team:
-                   <dark_gray>- <white>Members: <red>%d
-                   <dark_gray>- <white>Revealed: %s
-                  
-                  <gold>Pale <white>team:
-                   <dark_gray>- <white>Members: <yellow>%d
-                   <dark_gray>- <white>Revealed: %s
-                  
-                  Active events: %s
-                  """;
-
-        // TODO: Replace with config/state lookups
-        int humanCount = 0;
-        int vampireCount = 0;
-        int paleCount = 0;
-
-        String humanRevealed = true ? "<green>true" : "<red>false";
-        String vampireRevealed = true ? "<green>true" : "<red>false";
-        String paleRevealed = false ? "<green>true" : "<red>false";
 
         String worldEvent = WorldEvent.NONE.asString();
 
-        sender.sendMessage(mm.deserialize(fmt.formatted(humanCount, humanRevealed, vampireCount, vampireRevealed, paleCount, paleRevealed, worldEvent)));
+        sender.sendMessage(getStatusPart(Role.TEMP_HUMAN));
+        sender.sendMessage(getStatusPart(Role.TEMP_VAMPIRE));
+        sender.sendMessage(getStatusPart(Role.TEMP_PALE));
+        sender.sendMessage(mm.deserialize("Active events: " + worldEvent));
         return 1;
     }
 
