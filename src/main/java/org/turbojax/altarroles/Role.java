@@ -34,4 +34,22 @@ public enum Role {
     public boolean isTrue() {
         return this == TRUE_HUMAN || this == TRUE_VAMPIRE || this == TRUE_PALE;
     }
+
+    public Role toTemp() {
+        return switch (this) {
+            case TRUE_HUMAN -> TEMP_HUMAN;
+            case TRUE_VAMPIRE -> TEMP_VAMPIRE;
+            case TRUE_PALE -> TEMP_PALE;
+            default -> this;
+        };
+    }
+
+    public Role toTrue() {
+        return switch (this) {
+            case TEMP_HUMAN -> TRUE_HUMAN;
+            case TEMP_VAMPIRE -> TRUE_VAMPIRE;
+            case TEMP_PALE -> TRUE_PALE;
+            default -> this;
+        };
+    }
 }
