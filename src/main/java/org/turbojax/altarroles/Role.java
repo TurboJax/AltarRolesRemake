@@ -1,7 +1,6 @@
 package org.turbojax.altarroles;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 public enum Role {
     TRUE_HUMAN,
@@ -58,12 +57,12 @@ public enum Role {
 
     public Component prettyName() {
         return switch (this) {
-            case TEMP_HUMAN -> Component.text("Human", NamedTextColor.WHITE);
-            case TRUE_HUMAN -> Component.text("Human", NamedTextColor.GRAY);
-            case TEMP_VAMPIRE -> Component.text("Vampire", NamedTextColor.RED);
-            case TRUE_VAMPIRE -> Component.text("Vampire", NamedTextColor.DARK_RED);
-            case TEMP_PALE -> Component.text("Pale", NamedTextColor.YELLOW);
-            case TRUE_PALE -> Component.text("Pale", NamedTextColor.GOLD);
+            case TEMP_HUMAN -> Component.text("Human", MainConfig.getColor(this));
+            case TRUE_HUMAN -> Component.text("Human", MainConfig.getColor(this));
+            case TEMP_VAMPIRE -> Component.text("Vampire", MainConfig.getColor(this));
+            case TRUE_VAMPIRE -> Component.text("Vampire", MainConfig.getColor(this));
+            case TEMP_PALE -> Component.text("Pale", MainConfig.getColor(this));
+            case TRUE_PALE -> Component.text("Pale", MainConfig.getColor(this));
         };
     }
 
