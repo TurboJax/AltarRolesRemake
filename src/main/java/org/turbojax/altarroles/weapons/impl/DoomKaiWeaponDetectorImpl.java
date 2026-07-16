@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.turbojax.altarroles.weapons.WeaponDetector;
 
-public class DoomwenWeaponDetectorImpl implements WeaponDetector {
+public class DoomKaiWeaponDetectorImpl implements WeaponDetector {
     @Override
     public boolean isHyperion(ItemStack item) {
         if (item.getType() != Material.NETHERITE_SWORD) return false;
