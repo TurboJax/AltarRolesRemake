@@ -66,4 +66,12 @@ public enum Role {
             case TRUE_PALE -> Component.text("Pale", NamedTextColor.GOLD);
         };
     }
+
+    public boolean matchesTeam(Role other) {
+        if (isHuman() && other.isHuman()) return true;
+        if (isVampire() && other.isVampire()) return true;
+        if (isPale() && other.isPale()) return true;
+        
+        return false;
+    }
 }
