@@ -181,18 +181,99 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int lockRole(CommandContext<CommandSourceStack> ctx) {
-        // TODO: make a player unable to be converted by anything other than the contagion signal
+    public int lockRole(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver resolver) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        List<Player> targets;
+        try {
+            targets = resolver.resolve(ctx.getSource());
+        } catch (CommandSyntaxException e) {
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
+            return 1;
+        }
+
+        // Locking the targets roles
+        targets.forEach(PlayerHelper::lock);
+
+        // Giving feedback
+        if (targets.size() == 1) {
+            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+        } else {
+            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+        }
+
         return 1;
     }
 
-    public int giveHiddenRot(CommandContext<CommandSourceStack> ctx) {
-        // TODO: Parse target(s) and add/remove hidden rot from them
+    public int unlockRole(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver resolver) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        List<Player> targets;
+        try {
+            targets = resolver.resolve(ctx.getSource());
+        } catch (CommandSyntaxException e) {
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
+            return 1;
+        }
+
+        // Locking the targets roles
+        targets.forEach(PlayerHelper::unlock);
+
+        // Giving feedback
+        if (targets.size() == 1) {
+            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+        } else {
+            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+        }
+
         return 1;
     }
 
-    public int removeHiddenRot(CommandContext<CommandSourceStack> ctx) {
-        // TODO: Parse target(s) and add/remove hidden rot from them
+    public int giveHiddenRot(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver resolver) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        List<Player> targets;
+        try {
+            targets = resolver.resolve(ctx.getSource());
+        } catch (CommandSyntaxException e) {
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
+            return 1;
+        }
+
+        // Locking the targets roles
+        targets.forEach(PlayerHelper::lock);
+
+        // Giving feedback
+        if (targets.size() == 1) {
+            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+        } else {
+            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+        }
+
+        return 1;
+    }
+
+    public int removeHiddenRot(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver resolver) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        List<Player> targets;
+        try {
+            targets = resolver.resolve(ctx.getSource());
+        } catch (CommandSyntaxException e) {
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
+            return 1;
+        }
+
+        // Locking the targets roles
+        targets.forEach(PlayerHelper::lock);
+
+        // Giving feedback
+        if (targets.size() == 1) {
+            sender.sendMessage(Component.text("Locked ").append(targets.getFirst().displayName()).append(Component.text("'s role")));
+        } else {
+            sender.sendMessage(Component.text("Locked " + targets.size() + " players roles"));
+        }
+
         return 1;
     }
 
@@ -222,15 +303,15 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int setAbilityStrength(CommandContext<CommandSourceStack> ctx) {
+    public int setAbilityStrength(CommandContext<CommandSourceStack> ctx, int level) {
         return 1;
     }
 
-    public int revealTeam(CommandContext<CommandSourceStack> ctx) {
+    public int revealTeam(CommandContext<CommandSourceStack> ctx, Role team) {
         return 1;
     }
 
-    public int hideTeam(CommandContext<CommandSourceStack> ctx) {
+    public int hideTeam(CommandContext<CommandSourceStack> ctx, Role team) {
         return 1;
     }
 }
