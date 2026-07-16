@@ -15,6 +15,7 @@ public class WeaponManager {
             AltarRoles.LOGGER.warn("No WeaponDetecter instance has been loaded.  Cannot check if the item is a Hyperion.");
             return false;
         }
+
         return detector.isHyperion(item);
     }
 
@@ -23,6 +24,7 @@ public class WeaponManager {
             AltarRoles.LOGGER.warn("No WeaponDetecter instance has been loaded.  Cannot check if the item is a Night Piercer.");
             return false;
         }
+
         return detector.isNightPiercer(item);
     }
 
@@ -31,6 +33,16 @@ public class WeaponManager {
             AltarRoles.LOGGER.warn("No WeaponDetecter instance has been loaded.  Cannot check if the item is a Pale Cannon.");
             return false;
         }
+
         return detector.isPaleCannon(item);
+    }
+
+    public static boolean isTeamWeapon(ItemStack item) {
+        if (detector == null) {
+            AltarRoles.LOGGER.warn("No WeaponDetecter instance has been loaded.  Cannot check if the item is a Pale Cannon.");
+            return false;
+        }
+
+        return detector.isTeamWeapon(item);
     }
 }
