@@ -42,13 +42,13 @@ public class AltarRolesCommand {
             .then(Commands.literal("role")
                 .then(Commands.literal("get")
                     .then(Commands.argument("target", ArgumentTypes.players())
-                        .executes(this::getRole)
+                        .executes(c -> getRole(c, c.getArgument("target", PlayerSelectorArgumentResolver.class)))
                     )
                 )
                 .then(Commands.literal("set")
                     .then(Commands.argument("target", ArgumentTypes.players())
                         .then(Commands.argument("role", AltarRolesArgumentTypes.ROLE)
-                            .executes(this::setRole)
+                            .executes(c -> setRole(c, c.getArgument("target", PlayerSelectorArgumentResolver.class), c.getArgument("role", Role.class)))
                         )
                     )
                 )
@@ -149,10 +149,9 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int getRole(CommandContext<CommandSourceStack> ctx) {
+    public int getRole(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver targetsResolver) {
         CommandSender sender = ctx.getSource().getSender();
 
-        PlayerSelectorArgumentResolver targetsResolver = ctx.getArgument("target", PlayerSelectorArgumentResolver.class);
         List<Player> targets;
         try {
             targets = targetsResolver.resolve(ctx.getSource());
@@ -170,10 +169,9 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int setRole(CommandContext<CommandSourceStack> ctx) {
+    public int setRole(CommandContext<CommandSourceStack> ctx, PlayerSelectorArgumentResolver targetsResolver, Role role) {
         CommandSender sender = ctx.getSource().getSender();
 
-        PlayerSelectorArgumentResolver targetsResolver = ctx.getArgument("target", PlayerSelectorArgumentResolver.class);
         List<Player> targets;
         try {
             targets = targetsResolver.resolve(ctx.getSource());
@@ -182,10 +180,10 @@ public class AltarRolesCommand {
             return 1;
         }
 
-        Role role = ctx.getArgument("role", Role.class);
-
+        // Adjusting the players roles
         targets.forEach(p -> PlayerHelper.setRole(p, role));
 
+        // Giving feedback
         if (targets.size() == 1) {
             sender.sendMessage(Component.text("Set ").append(targets.getFirst().displayName()).append(Component.text("'s role to ")).append(role.prettyName()));
         } else {
