@@ -66,6 +66,17 @@ public enum Role {
         };
     }
 
+    public Component prettyLongName() {
+        return switch (this) {
+            case TEMP_HUMAN -> Component.text("Temp Human", MainConfig.getColor(this));
+            case TRUE_HUMAN -> Component.text("True Human", MainConfig.getColor(this));
+            case TEMP_VAMPIRE -> Component.text("Temp Vampire", MainConfig.getColor(this));
+            case TRUE_VAMPIRE -> Component.text("True Vampire", MainConfig.getColor(this));
+            case TEMP_PALE -> Component.text("Temp Pale", MainConfig.getColor(this));
+            case TRUE_PALE -> Component.text("True Pale", MainConfig.getColor(this));
+        };
+    }
+
     public boolean matchesTeam(Role other) {
         if (isHuman() && other.isHuman()) return true;
         if (isVampire() && other.isVampire()) return true;
