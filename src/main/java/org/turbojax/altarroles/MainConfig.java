@@ -13,20 +13,14 @@ public class MainConfig {
     public static final File file = new File(plugin.getDataFolder(), "config.yml");
     public static final FileConfiguration config = new YamlConfiguration();
 
-    private static final MainConfig instance = new MainConfig();
-
     private MainConfig() {}
-
-    public static MainConfig getInstance() {
-        return instance;
-    }
 
     /**
      * Reloads the configuration.
      *
      * @return Whether the configuration was loaded successfully.
      */
-    public boolean load() {
+    public static boolean load() {
         // Not doing anything if the plugin isn't enabled
         if (!plugin.isEnabled()) {
             AltarRoles.LOGGER.error("{} not loaded, cannot load {}.", plugin.getName(), file.getName());
@@ -59,7 +53,7 @@ public class MainConfig {
      * 
      * @return Whether or not the config was successfully written.
      */
-    public boolean save() {
+    public static boolean save() {
         // Not doing anything if the plugin isn't enabled
         if (!plugin.isEnabled()) {
             AltarRoles.LOGGER.error("{} not loaded, cannot save {}.", plugin.getName(), file.getName());
@@ -87,9 +81,9 @@ public class MainConfig {
         return false;
     }
 
-    public String altarPlugin() {
+    public static String altarPlugin() {
         return config.getString("altar_plugin", "official").toLowerCase();
     }
 
-    public void applyUpdates() {}
+    public static void applyUpdates() {}
 }
