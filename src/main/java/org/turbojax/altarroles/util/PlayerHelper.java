@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.turbojax.altarroles.Role;
 
-public class TeamManager {
+public class PlayerHelper {
     public static final NamespacedKey ROLE_KEY = new NamespacedKey("altar_roles", "role");
     public static final NamespacedKey HIDDEN_ROT_KEY = new NamespacedKey("altar_roles", "hidden_rot");
 
