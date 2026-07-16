@@ -151,7 +151,8 @@ public class AltarRolesCommand {
         // Printing each selected player's role
         targets.forEach(p -> {
             Role role = PlayerHelper.getRole(p);
-            sender.sendMessage(p.displayName().append(Component.text(" is a ")).append(role.prettyName()));
+            boolean locked = PlayerHelper.isLocked(p);
+            sender.sendMessage(p.displayName().append(mm.deserialize("<white> is " + (locked ? "locked as a " : "a "))).append(role.prettyLongName()));
         });
 
         return 1;
