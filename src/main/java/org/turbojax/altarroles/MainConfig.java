@@ -5,6 +5,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -83,6 +86,25 @@ public class MainConfig {
 
     public static String altarPlugin() {
         return config.getString("altar_plugin", "official").toLowerCase();
+    }
+
+    public static TextColor getColor(Role role) {
+        String key = role.name().toLowerCase();
+        key = key.substring(5) + "." + key.substring(0, 5) + "_color";
+        
+        String color = config.getString(key);
+
+        // Handle hex codes
+        if (color.startsWith("#")) return TextColor.fromHexString(color);
+
+        // Handling named text colors
+        return NamedTextColor.NAMES.value(key);
+    }
+
+    public static boolean isRevealed(Role role) {
+        String key = role.name().toLowerCase().substring(5) + ".revealed";
+
+        return config.getBoolean(key, !role.isPale());
     }
 
     public static void applyUpdates() {}

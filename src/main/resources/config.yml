@@ -2,3 +2,24 @@
 # Allows this plugin to determine if an ItemStack is one of the legendary weapons.
 # Accepts "official", "kai", or "doomwen"
 altar_plugin: official
+
+# Team-specific configs
+# Not many configs exist for the Human team due to them having no abilities, but check out what you can change for the vampire or pale rot teams
+
+human:
+  # This is the color of the TEMP_HUMAN role.  Wherever the role is mentioned, this color will be used.  It can be any of the colors in https://jd.papermc.io/adventure/5.2.0/net.kyori.adventure.api/net/kyori/adventure/text/format/NamedTextColor.html
+  # Alternatively, it could be a hex code.
+  temp_color: white
+  true_color: gray
+  # This will control whether or not the team will have their names colored in the tab list.
+  revealed: true
+
+vampire:
+  temp_color: red
+  true_color: dark_red
+  revealed: true
+
+pale_rot:
+  temp_color: yellow
+  true_color: gold
+  revealed: false
