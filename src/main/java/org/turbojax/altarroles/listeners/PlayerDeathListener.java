@@ -4,8 +4,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.turbojax.altarroles.Role;
 import org.turbojax.altarroles.util.PlayerHelper;
+import org.turbojax.altarroles.weapons.WeaponManager;
 
 public class PlayerDeathListener implements Listener {
     @EventHandler
@@ -16,9 +18,12 @@ public class PlayerDeathListener implements Listener {
         Role deadRole = PlayerHelper.getRole(dead);
         Role killerRole = PlayerHelper.getRole(killer);
 
-        // TODO: Handle legendaries
-        // Should legendary kills convert the player to the wielder's team or the weapon's team?
-        // Probably the wielder's team.
+        // Handling players killed by legendary weapons
+        ItemStack item = killer.getInventory().getItemInMainHand();
+        if (WeaponManager.isTeamWeapon(item)) {
+            PlayerHelper.setRole(dead, killerRole.toTrue());
+            return;
+        }
 
         // True roles cannot be converted by normal kills
         if (!deadRole.isTrue()) return;
