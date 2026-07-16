@@ -155,16 +155,41 @@ public class AltarRolesCommand {
         try {
             targets = targetsResolver.resolve(ctx.getSource());
         } catch (CommandSyntaxException e) {
-
+            sender.sendMessage(e.getMessage());
             return 1;
         }
 
+        // Printing each selected player's role
+        targets.forEach(p -> {
+            Role role = PlayerHelper.getRole(p);
+            sender.sendMessage(p.displayName().append(Component.text(" is a ")).append(role.prettyName()));
+        });
 
         return 1;
     }
 
     public int setRole(CommandContext<CommandSourceStack> ctx) {
-        // TODO: Parse target(s) and update their roles
+        CommandSender sender = ctx.getSource().getSender();
+
+        PlayerSelectorArgumentResolver targetsResolver = ctx.getArgument("target", PlayerSelectorArgumentResolver.class);
+        List<Player> targets;
+        try {
+            targets = targetsResolver.resolve(ctx.getSource());
+        } catch (CommandSyntaxException e) {
+            sender.sendMessage(e.getMessage());
+            return 1;
+        }
+
+        Role role = ctx.getArgument("role", Role.class);
+
+        targets.forEach(p -> PlayerHelper.setRole(p, role));
+
+        if (targets.size() == 1) {
+            sender.sendMessage(Component.text("Set ").append(targets.getFirst().displayName()).append(Component.text("'s role to ")).append(role.prettyName()));
+        } else {
+            sender.sendMessage(Component.text("Set " + targets.size() + " players roles to ").append(role.prettyName()));
+        }
+
         return 1;
     }
 
