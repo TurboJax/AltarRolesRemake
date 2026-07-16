@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.MessageComponentSerializer;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import net.kyori.adventure.text.Component;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class AltarRolesCommand {
     private static final MiniMessage mm = MiniMessage.miniMessage();
+    private static final MessageComponentSerializer msgSerializer = MessageComponentSerializer.message();
 
     private final AltarRoles plugin;
 
@@ -155,7 +157,7 @@ public class AltarRolesCommand {
         try {
             targets = targetsResolver.resolve(ctx.getSource());
         } catch (CommandSyntaxException e) {
-            sender.sendMessage(e.getMessage());
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
             return 1;
         }
 
@@ -176,7 +178,7 @@ public class AltarRolesCommand {
         try {
             targets = targetsResolver.resolve(ctx.getSource());
         } catch (CommandSyntaxException e) {
-            sender.sendMessage(e.getMessage());
+            sender.sendMessage(msgSerializer.deserialize(e.getRawMessage()));
             return 1;
         }
 
