@@ -4,6 +4,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.turbojax.altarroles.DataManager;
 import org.turbojax.altarroles.Role;
 
 public class PlayerHelper {
@@ -16,6 +17,14 @@ public class PlayerHelper {
     }
 
     public static void setRole(Player player, Role role) {
+        // Getting the old role
+        Role oldRole = getRole(player);
+
+        // Updating member counts
+        DataManager.setMemberCount(oldRole, DataManager.getMemberCount(oldRole, true) - 1);
+        DataManager.setMemberCount(role, DataManager.getMemberCount(role, true) + 1);
+
+        // Saving the new role
         player.getPersistentDataContainer().set(ROLE_KEY, CustomPDCTypes.ROLE, role);
     }
 
