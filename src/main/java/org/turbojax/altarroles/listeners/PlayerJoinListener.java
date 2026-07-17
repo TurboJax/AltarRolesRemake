@@ -19,4 +19,13 @@ public class PlayerJoinListener implements Listener {
         PlayerHelper.setRole(player, Role.TEMP_PALE);
         DataManager.removePlayerToRevealRot(player.getUniqueId());
     }
+
+    @EventHandler
+    public void incrementHumanCount(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        if (player.hasPlayedBefore()) return;
+
+        DataManager.setMemberCount(Role.TEMP_HUMAN, DataManager.getMemberCount(Role.TEMP_HUMAN, true) + 1);
+    }
 }
