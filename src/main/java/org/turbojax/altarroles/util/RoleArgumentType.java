@@ -40,6 +40,7 @@ public class RoleArgumentType implements CustomArgumentType<Role,String> {
             .map(Enum::name)
             .map(String::toLowerCase)
             .filter(s -> s.contains(builder.getRemaining().toLowerCase()))
+            .sorted()
             .forEach(builder::suggest);
 
         return builder.buildFuture();

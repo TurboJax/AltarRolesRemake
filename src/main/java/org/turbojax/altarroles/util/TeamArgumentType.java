@@ -33,9 +33,10 @@ public class TeamArgumentType implements CustomArgumentType<Role,String> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-        builder.suggest("human");
-        builder.suggest("vampire");
-        builder.suggest("pale");
+        EXAMPLES.stream()
+            .filter(s -> s.contains(builder.getRemainingLowerCase()))
+            .sorted()
+            .forEach(builder::suggest);
 
         return builder.buildFuture();
     }
