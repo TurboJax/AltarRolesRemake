@@ -95,7 +95,7 @@ public class MainConfig {
         if (color.startsWith("#")) return TextColor.fromHexString(color);
 
         // Handling named text colors
-        return NamedTextColor.NAMES.value(key);
+        return NamedTextColor.NAMES.value(color);
     }
 
     public static boolean isRevealed(Role role) {
