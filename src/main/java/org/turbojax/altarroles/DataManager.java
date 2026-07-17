@@ -10,6 +10,7 @@ import org.turbojax.altarroles.util.PlayerHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 public class DataManager {
     public static final AltarRoles plugin = JavaPlugin.getPlugin(AltarRoles.class);
@@ -109,6 +110,29 @@ public class DataManager {
         return (int) List.copyOf(Bukkit.getOnlinePlayers()).stream()
             .filter(p -> PlayerHelper.getRole(p).matchesTeam(role))
             .count();
+    }
+
+    public static List<UUID> getPlayersToRevealRot() {
+        return config.getStringList("to_reveal")
+            .stream()
+            .map(UUID::fromString)
+            .toList();
+    }
+
+    public static void setPlayersToRevealRot(List<UUID> players) {
+        config.set("to_reveal", players.stream().map(UUID::toString).toList());
+    }
+
+    public static void addPlayerToRevealRot(UUID player) {
+        List<UUID> players = getPlayersToRevealRot();
+        players.add(player);
+        setPlayersToRevealRot(players);
+    }
+
+    public static void removePlayerToRevealRot(UUID player) {
+        List<UUID> players = getPlayersToRevealRot();
+        players.remove(player);
+        setPlayersToRevealRot(players);
     }
 
     public static void applyUpdates() {}
