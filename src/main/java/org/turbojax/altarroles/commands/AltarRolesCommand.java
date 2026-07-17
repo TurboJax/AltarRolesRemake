@@ -286,7 +286,7 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int revealHiddenRot(CommandContext<CommandSourceStack> ctx) {
+    public int convertHiddenRot(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
         Stream.of(Bukkit.getOfflinePlayers())
@@ -313,7 +313,7 @@ public class AltarRolesCommand {
     public int startEternalNight(CommandContext<CommandSourceStack> ctx) {
         WorldEvent.setActiveEvent(WorldEvent.ETERNAL_NIGHT);
 
-        revealHiddenRot(ctx);
+        convertHiddenRot(ctx);
         revealTeam(ctx, Role.TEMP_PALE);
         return 1;
     }
