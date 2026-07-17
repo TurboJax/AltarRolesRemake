@@ -34,7 +34,11 @@ public class DataManager {
         // Creating the file if it doesn't exist.
         if (!file.exists()) {
             file.getParentFile().mkdirs();
-            plugin.saveResource(file.getName(), true);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                AltarRoles.LOGGER.error("Failed to create {}.", file.getName());
+            }
         }
 
         // Loading the config
