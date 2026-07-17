@@ -72,27 +72,21 @@ public class AltarRolesCommand {
                         .executes(c -> removeHiddenRot(c, c.getArgument("target", PlayerSelectorArgumentResolver.class)))
                     )
                 )
-                .then(Commands.literal("reveal")
-                    .executes(this::revealHiddenRot)
+                .then(Commands.literal("convert")
+                    .executes(this::convertHiddenRot)
                 )
             )
             .then(Commands.literal("reload")
                 .executes(this::reload)
             )
-            .then(Commands.literal("eternalnight")
+            .then(Commands.literal("event")
                 .then(Commands.literal("start")
-                    .executes(this::startEternalNight)
+                    .then(Commands.argument("event", AltarRolesArgumentTypes.WORLD_EVENT)
+                        .executes(c -> startEvent(c, c.getArgument("event", WorldEvent.class)))
+                    )
                 )
-                .then(Commands.literal("end")
-                    .executes(this::endEternalNight)
-                )
-            )
-            .then(Commands.literal("bloodmoon")
-                .then(Commands.literal("start")
-                    .executes(this::startBloodMoon)
-                )
-                .then(Commands.literal("end")
-                    .executes(this::endBloodMoon)
+                .then(Commands.literal("stop")
+                    .executes(this::stopEvent)
                 )
             )
             .then(Commands.literal("abilitystrength")
@@ -310,27 +304,19 @@ public class AltarRolesCommand {
         return 1;
     }
 
-    public int startEternalNight(CommandContext<CommandSourceStack> ctx) {
-        WorldEvent.setActiveEvent(WorldEvent.ETERNAL_NIGHT);
+    public int startEvent(CommandContext<CommandSourceStack> ctx, WorldEvent event) {
+        WorldEvent.setActiveEvent(event);
 
-        convertHiddenRot(ctx);
-        revealTeam(ctx, Role.TEMP_PALE);
+        if (event == WorldEvent.ETERNAL_NIGHT) {
+            revealTeam(ctx, Role.TEMP_VAMPIRE);
+        } else {
+            convertHiddenRot(ctx);
+            revealTeam(ctx, Role.TEMP_PALE);
+        }
         return 1;
     }
 
-    public int endEternalNight(CommandContext<CommandSourceStack> ctx) {
-        WorldEvent.setActiveEvent(WorldEvent.NONE);
-        return 1;
-    }
-
-    public int startBloodMoon(CommandContext<CommandSourceStack> ctx) {
-        WorldEvent.setActiveEvent(WorldEvent.BLOOD_MOON);
-
-        revealTeam(ctx, Role.TEMP_VAMPIRE);
-        return 1;
-    }
-
-    public int endBloodMoon(CommandContext<CommandSourceStack> ctx) {
+    public int stopEvent(CommandContext<CommandSourceStack> ctx) {
         WorldEvent.setActiveEvent(WorldEvent.NONE);
         return 1;
     }
