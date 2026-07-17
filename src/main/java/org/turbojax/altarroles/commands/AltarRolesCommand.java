@@ -282,6 +282,8 @@ public class AltarRolesCommand {
     }
 
     public int revealHiddenRot(CommandContext<CommandSourceStack> ctx) {
+        CommandSender sender = ctx.getSource().getSender();
+
         Stream.of(Bukkit.getOfflinePlayers())
             .filter(PlayerHelper::hasHiddenRot)
             .forEach(p -> {
@@ -294,6 +296,7 @@ public class AltarRolesCommand {
                 PlayerHelper.setHiddenRot(p.getPlayer(), false);
             });
 
+        sender.sendMessage("Converted players with hidden rot to the pale rot team");
         return 1;
     }
 
@@ -303,22 +306,36 @@ public class AltarRolesCommand {
     }
 
     public int startEternalNight(CommandContext<CommandSourceStack> ctx) {
+        WorldEvent.setActiveEvent(WorldEvent.ETERNAL_NIGHT);
+
+        revealHiddenRot(ctx);
+        revealTeam(ctx, Role.TEMP_PALE);
         return 1;
     }
 
     public int endEternalNight(CommandContext<CommandSourceStack> ctx) {
+        WorldEvent.setActiveEvent(WorldEvent.NONE);
         return 1;
     }
 
     public int startBloodMoon(CommandContext<CommandSourceStack> ctx) {
+        WorldEvent.setActiveEvent(WorldEvent.BLOOD_MOON);
+
+        revealTeam(ctx, Role.TEMP_VAMPIRE);
         return 1;
     }
 
     public int endBloodMoon(CommandContext<CommandSourceStack> ctx) {
+        WorldEvent.setActiveEvent(WorldEvent.NONE);
         return 1;
     }
 
     public int setAbilityStrength(CommandContext<CommandSourceStack> ctx, int level) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        DataManager.setAbilityStrength(level);
+
+        sender.sendMessage("Set the ability strength to " + level);
         return 1;
     }
 
