@@ -10,8 +10,8 @@ import io.papermc.paper.command.brigadier.MessageComponentSerializer;
 import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -323,10 +323,20 @@ public class AltarRolesCommand {
     }
 
     public int revealTeam(CommandContext<CommandSourceStack> ctx, Role team) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        MainConfig.setRevealed(team, true);
+
+        sender.sendMessage(Component.text("Revealed the ").append(team.prettyName()).append(Component.text(" team", NamedTextColor.WHITE)));
         return 1;
     }
 
     public int hideTeam(CommandContext<CommandSourceStack> ctx, Role team) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        MainConfig.setRevealed(team, false);
+
+        sender.sendMessage(Component.text("Hid the ").append(team.prettyName()).append(Component.text(" team", NamedTextColor.WHITE)));
         return 1;
     }
 }
