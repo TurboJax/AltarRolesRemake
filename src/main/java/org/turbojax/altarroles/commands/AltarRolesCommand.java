@@ -135,7 +135,30 @@ public class AltarRolesCommand {
     }
 
     public int help(CommandContext<CommandSourceStack> ctx) {
-        // TODO: show help msg
+        CommandSender sender = ctx.getSource().getSender();
+
+        String s = """
+                <dark_gray>>---------- <red>AltarRoles Commands <dark_gray>----------\\<
+                <gold>/altarroles <yellow>status<white>: Prints the status message.  It contains the number of players on each team and the active world event.
+                <gold>/altarroles <yellow>help<white>: Prints this help message.
+                <gold>/altarroles <yellow>role get \\<target><white>: Gets the role of the player(s) you target.
+                <gold>/altarroles <yellow>role set \\<target> \\<role><white>: Sets the role of the player(s) you target.
+                <gold>/altarroles <yellow>role lock \\<target><white>: Locks the role of the player(s) you target.
+                <gold>/altarroles <yellow>role unlock \\<target><white>: Unlocks the role of the player(s) you target.
+                <gold>/altarroles <yellow>hiddenrot give \\<target><white>: Gives the player(s) you target hidden rot.
+                <gold>/altarroles <yellow>hiddenrot remove \\<target><white>: Removes hidden rot from the player(s) you target.
+                <gold>/altarroles <yellow>hiddenrot convert<white>: Converts everyone with hidden rot to pale rot.
+                <gold>/altarroles <yellow>reload<white>: Reloads the config.
+                <gold>/altarroles <yellow>event start \\<event><white>: Starts the specified event.
+                <gold>/altarroles <yellow>event stop<white>: Stops the current event.
+                <gold>/altarroles <yellow>abilitystrength get<white>: Gets the active ability strength.  It is affected by events.
+                <gold>/altarroles <yellow>abilitystrength set \\<level><white>: Sets the ability strength.
+                <gold>/altarroles <yellow>revealteam \\<team><white>: Reveals the specified team.
+                <gold>/altarroles <yellow>hideteam \\<team><white>: Hides the specified team.
+                """;
+
+        sender.sendMessage(mm.deserialize(s));
+        
         return 1;
     }
 
