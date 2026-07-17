@@ -65,11 +65,8 @@ public class MainConfig {
 
         // Creating the file if it doesn't exist.
         if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                return false;
-            }
+            plugin.saveResource(file.getName(), false);
+            return true;
         }
 
         // Saving the config
@@ -90,7 +87,7 @@ public class MainConfig {
 
     public static TextColor getColor(Role role) {
         String key = role.name().toLowerCase();
-        key = key.substring(5) + "." + key.substring(0, 5) + "_color";
+        key = key.substring(5) + "." + key.substring(0, 5) + "color";
         
         String color = config.getString(key);
 
