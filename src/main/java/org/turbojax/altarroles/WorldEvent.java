@@ -8,6 +8,16 @@ public enum WorldEvent {
     BLOOD_MOON,
     ETERNAL_NIGHT;
 
+    private static WorldEvent active = NONE;
+
+    public static WorldEvent getActiveEvent() {
+        return active;
+    }
+
+    public static void setActiveEvent(WorldEvent event) {
+        active = event;
+    }
+
     public Component prettyName() {
         return switch (this) {
             case NONE -> Component.text("None");
