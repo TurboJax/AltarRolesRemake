@@ -95,9 +95,14 @@ public class AltarRolesCommand {
                     .executes(this::endBloodMoon)
                 )
             )
-            .then(Commands.literal("setabilitystrength")
-                .then(Commands.argument("level", IntegerArgumentType.integer(1, 2))
-                    .executes(c -> setAbilityStrength(c, c.getArgument("level", Integer.class)))
+            .then(Commands.literal("abilitystrength")
+                .then(Commands.literal("get")
+                    .executes(this::getAbilityStrength)
+                )
+                .then(Commands.literal("set")
+                    .then(Commands.argument("level", IntegerArgumentType.integer(1, 2))
+                        .executes(c -> setAbilityStrength(c, c.getArgument("level", Integer.class)))
+                    )
                 )
             )
             .then(Commands.literal("revealteam")
@@ -327,6 +332,16 @@ public class AltarRolesCommand {
 
     public int endBloodMoon(CommandContext<CommandSourceStack> ctx) {
         WorldEvent.setActiveEvent(WorldEvent.NONE);
+        return 1;
+    }
+
+    public int getAbilityStrength(CommandContext<CommandSourceStack> ctx) {
+        CommandSender sender = ctx.getSource().getSender();
+
+        int level = DataManager.getAbilityStrength();
+        if (WorldEvent.getActiveEvent() != WorldEvent.NONE) level = 2;
+
+        sender.sendMessage("The active ability strength is " + level);
         return 1;
     }
 
