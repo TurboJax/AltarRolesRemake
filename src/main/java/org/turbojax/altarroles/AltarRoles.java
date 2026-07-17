@@ -15,7 +15,6 @@ public final class AltarRoles extends JavaPlugin {
     @Override
     public void onEnable() {
         // Saving the default config
-        MainConfig.save();
         MainConfig.load();
 
         // Registering commands
@@ -31,5 +30,7 @@ public final class AltarRoles extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        DataManager.save();
+        MainConfig.save();
     }
 }
