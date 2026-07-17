@@ -1,17 +1,18 @@
 package org.turbojax.altarroles;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
 public enum WorldEvent {
-    NONE("<white>None"),
-    BLOOD_MOON("<dark_red>Blood Moon"),
-    ETERNAL_NIGHT("<dark_gray>Eternal Night");
+    NONE,
+    BLOOD_MOON,
+    ETERNAL_NIGHT;
 
-    private final String str;
-
-    WorldEvent(String str) {
-        this.str = str;
-    }
-
-    public String asString() {
-        return str;
+    public Component prettyName() {
+        return switch (this) {
+            case NONE -> Component.text("None");
+            case BLOOD_MOON -> Component.text("Blood Moon", NamedTextColor.DARK_RED);
+            case ETERNAL_NIGHT -> Component.text("Eternal Night", NamedTextColor.DARK_GRAY);
+        };
     }
 }

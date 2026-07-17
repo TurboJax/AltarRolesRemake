@@ -126,12 +126,12 @@ public class AltarRolesCommand {
     public int status(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
-        String worldEvent = WorldEvent.NONE.asString();
+        WorldEvent worldEvent = WorldEvent.NONE;
 
         sender.sendMessage(getStatusPart(Role.TEMP_HUMAN));
         sender.sendMessage(getStatusPart(Role.TEMP_VAMPIRE));
         sender.sendMessage(getStatusPart(Role.TEMP_PALE));
-        sender.sendMessage(mm.deserialize("Active events: " + worldEvent));
+        sender.sendMessage(mm.deserialize("Active events: ").append(worldEvent.prettyName()));
         return 1;
     }
 
