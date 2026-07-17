@@ -11,6 +11,8 @@ import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.turbojax.altarroles.DataManager;
@@ -21,6 +23,7 @@ import org.turbojax.altarroles.util.AltarRolesArgumentTypes;
 import org.turbojax.altarroles.util.PlayerHelper;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class AltarRolesCommand {
     private static final MiniMessage mm = MiniMessage.miniMessage();
@@ -279,12 +282,23 @@ public class AltarRolesCommand {
     }
 
     public int revealHiddenRot(CommandContext<CommandSourceStack> ctx) {
-        // TODO: Converts all players with hidden rot to the TEMP_PALE team
+        Stream.of(Bukkit.getOfflinePlayers())
+            .filter(PlayerHelper::hasHiddenRot)
+            .forEach(p -> {
+                if (!p.isOnline()) {
+                    DataManager.addPlayerToRevealRot(p.getUniqueId());
+                    return;
+                }
+
+                PlayerHelper.setRole(p.getPlayer(), Role.TEMP_PALE);
+                PlayerHelper.setHiddenRot(p.getPlayer(), false);
+            });
+
         return 1;
     }
 
     public int reload(CommandContext<CommandSourceStack> ctx) {
-        // TODO: Reload configs
+        MainConfig.load();
         return 1;
     }
 
