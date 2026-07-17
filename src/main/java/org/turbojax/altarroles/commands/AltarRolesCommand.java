@@ -131,7 +131,7 @@ public class AltarRolesCommand {
 
         sender.sendMessage(getStatusPart(Role.TEMP_HUMAN));
         sender.sendMessage(getStatusPart(Role.TEMP_VAMPIRE));
-        sender.sendMessage(getStatusPart(Role.TEMP_PALE));
+        sender.sendMessage(getStatusPart(Role.TEMP_PALE_ROT));
         sender.sendMessage(mm.deserialize("Active events: ").append(worldEvent.prettyName()));
         return 1;
     }
@@ -316,7 +316,7 @@ public class AltarRolesCommand {
                     return;
                 }
 
-                PlayerHelper.setRole(p.getPlayer(), Role.TEMP_PALE);
+                PlayerHelper.setRole(p.getPlayer(), Role.TEMP_PALE_ROT);
                 PlayerHelper.setHiddenRot(p.getPlayer(), false);
             });
 
@@ -336,7 +336,7 @@ public class AltarRolesCommand {
             revealTeam(ctx, Role.TEMP_VAMPIRE);
         } else {
             convertHiddenRot(ctx);
-            revealTeam(ctx, Role.TEMP_PALE);
+            revealTeam(ctx, Role.TEMP_PALE_ROT);
         }
         return 1;
     }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class TeamArgumentType implements CustomArgumentType<Role,String> {
-    private static final List<String> EXAMPLES = List.of("human", "vampire", "pale");
+    private static final List<String> EXAMPLES = List.of("human", "vampire", "pale_rot");
     private static final DynamicCommandExceptionType PARSE_ERROR = new DynamicCommandExceptionType(team -> new LiteralMessage("Invalid team \"" + team + "\""));
 
     @Override
@@ -26,7 +26,7 @@ public class TeamArgumentType implements CustomArgumentType<Role,String> {
 
         if (team.equalsIgnoreCase("human")) return Role.TEMP_HUMAN;
         if (team.equalsIgnoreCase("vampire")) return Role.TEMP_VAMPIRE;
-        if (team.equalsIgnoreCase("pale")) return Role.TEMP_PALE;
+        if (team.equalsIgnoreCase("pale_rot")) return Role.TEMP_PALE_ROT;
 
         throw PARSE_ERROR.create(team);
     }

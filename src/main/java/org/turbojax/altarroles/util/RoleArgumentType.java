@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 import org.turbojax.altarroles.Role;
 
 public class RoleArgumentType implements CustomArgumentType<Role,String> {
-    private static final List<String> EXAMPLES = List.of("temp_human", "temp_vampire", "true_pale");
+    private static final List<String> EXAMPLES = List.of("temp_human", "temp_vampire", "true_pale_rot");
     private static final DynamicCommandExceptionType PARSE_ERROR = new DynamicCommandExceptionType(team -> new LiteralMessage("Invalid team \"" + team + "\""));
 
     @Override

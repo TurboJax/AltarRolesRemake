@@ -16,7 +16,7 @@ public class PlayerJoinListener implements Listener {
         if (!DataManager.getPlayersToRevealRot().contains(player.getUniqueId())) return;
 
         PlayerHelper.setHiddenRot(player, false);
-        PlayerHelper.setRole(player, Role.TEMP_PALE);
+        PlayerHelper.setRole(player, Role.TEMP_PALE_ROT);
         DataManager.removePlayerToRevealRot(player.getUniqueId());
     }
 

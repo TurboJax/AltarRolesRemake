@@ -101,7 +101,7 @@ public class MainConfig {
     public static boolean isRevealed(Role role) {
         String key = role.name().toLowerCase().substring(5) + ".revealed";
 
-        return config.getBoolean(key, !role.isPale());
+        return config.getBoolean(key, !role.isPaleRot());
     }
 
     public static void setRevealed(Role role, boolean revealed) {

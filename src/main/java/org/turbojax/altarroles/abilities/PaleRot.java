@@ -49,7 +49,7 @@ public class PaleRot {
         if (!(event.getDamager() instanceof Player player)) return;
 
         Role role = PlayerHelper.getRole(player);
-        if (!role.isPale()) return;
+        if (!role.isPaleRot()) return;
         
         if (!(event.getEntity() instanceof Player target)) return;
 
@@ -75,7 +75,7 @@ public class PaleRot {
         if (!(event.getTarget() instanceof Player player)) return;
 
         Role role = PlayerHelper.getRole(player);
-        if (!role.isPale()) return;
+        if (!role.isPaleRot()) return;
 
         event.setCancelled(true);
     }
@@ -84,7 +84,7 @@ public class PaleRot {
     public void rottenFleshPowers(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
         Role role = PlayerHelper.getRole(player);
-        if (!role.isPale()) return;
+        if (!role.isPaleRot()) return;
 
         player.addPotionEffect(ROTTEN_ABSORPTION);
         player.addPotionEffect(ROTTEN_REGEN);
