@@ -15,6 +15,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.turbojax.altarroles.AltarRoles;
 import org.turbojax.altarroles.DataManager;
 import org.turbojax.altarroles.MainConfig;
 import org.turbojax.altarroles.Role;
@@ -57,7 +58,7 @@ public class AltarRolesCommand {
                 )
                 .then(Commands.literal("unlock")
                     .then(Commands.argument("target", ArgumentTypes.players())
-                        .executes(c -> lockRole(c, c.getArgument("target", PlayerSelectorArgumentResolver.class)))
+                        .executes(c -> unlockRole(c, c.getArgument("target", PlayerSelectorArgumentResolver.class)))
                     )
                 )
             )
@@ -325,7 +326,12 @@ public class AltarRolesCommand {
     }
 
     public int reload(CommandContext<CommandSourceStack> ctx) {
+        CommandSender sender = ctx.getSource().getSender();
+
         MainConfig.load();
+        AltarRoles.updateColors();
+
+        sender.sendMessage(mm.deserialize("<green>Reloaded AtlarRoles"));
         return 1;
     }
 
