@@ -135,5 +135,13 @@ public class DataManager {
         setPlayersToRevealRot(players);
     }
 
+    public static int getAbilityStrength() {
+        return config.getInt("ability_strength", 1);
+    }
+
+    public static void setAbilityStrength(int strength) {
+        config.set("ability_strength", strength);
+    }
+
     public static void applyUpdates() {}
 }
