@@ -117,15 +117,17 @@ public class AltarRolesCommand {
         int onlineMemberCount = DataManager.getOnlineMemberCount(team, false);
         boolean revealed = MainConfig.isRevealed(team);
 
-        return team.prettyName().append(mm.deserialize(" <white>team:\n" +
-                        " <dark_gray>- <white>Members: <white>%d <white>(<gold>%d <white>Online)\n" +
-                        " <dark_gray>- <white>Revealed: %s\n".formatted(memberCount, onlineMemberCount, revealed)));
+        return team.prettyName().append(mm.deserialize("""
+                 <white>team:
+                 <dark_gray>- <white>Members: <white>%d <white>(<gold>%d <white>Online)
+                 <dark_gray>- <white>Revealed: %s
+                """.formatted(memberCount, onlineMemberCount, revealed)));
     }
 
     public int status(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
-        WorldEvent worldEvent = WorldEvent.NONE;
+        WorldEvent worldEvent = WorldEvent.getActiveEvent();
 
         sender.sendMessage(getStatusPart(Role.TEMP_HUMAN));
         sender.sendMessage(getStatusPart(Role.TEMP_VAMPIRE));
