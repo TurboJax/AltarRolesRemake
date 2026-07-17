@@ -20,6 +20,7 @@ public final class AltarRoles extends JavaPlugin {
     public void onEnable() {
         // Saving the default config
         MainConfig.load();
+        DataManager.load();
 
         // Registering commands
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
