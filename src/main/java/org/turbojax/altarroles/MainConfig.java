@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
+import org.jspecify.annotations.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -85,17 +85,25 @@ public class MainConfig {
         return config.getString("altar_plugin", "official").toLowerCase();
     }
 
-    public static TextColor getColor(Role role) {
+    @NonNull
+    public static NamedTextColor getColor(Role role) {
         String key = role.name().toLowerCase();
         key = key.substring(5) + "." + key.substring(0, 5) + "color";
         
         String color = config.getString(key);
+        if (color == null) {
+            AltarRoles.LOGGER.error("Invalid team color 'null' for role '{}'.  Please use a named text color.", key);
+            return NamedTextColor.WHITE;
+        }
 
-        // Handle hex codes
-        if (color.startsWith("#")) return TextColor.fromHexString(color);
+        NamedTextColor value = NamedTextColor.NAMES.value(color);
 
-        // Handling named text colors
-        return NamedTextColor.NAMES.value(color);
+        if (value == null) {
+            AltarRoles.LOGGER.error("Invalid team color '{}' for role '{}'.  Please use a named text color.", color, key);
+            return NamedTextColor.WHITE;
+        }
+
+        return value;
     }
 
     public static boolean isRevealed(Role role) {

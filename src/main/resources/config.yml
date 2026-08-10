@@ -8,10 +8,9 @@ altar_plugin: official
 
 human:
   # This is the color of the TEMP_HUMAN role.  Wherever the role is mentioned, this color will be used.  It can be any of the colors in https://jd.papermc.io/adventure/5.2.0/net.kyori.adventure.api/net/kyori/adventure/text/format/NamedTextColor.html
-  # Alternatively, it could be a hex code.
   temp_color: white
   true_color: gray
-  # This will control whether or not the team will have their names colored in the tab list.
+  # This will control whether the team will have their names colored in the tab list or not.
   revealed: true
 
 vampire:
