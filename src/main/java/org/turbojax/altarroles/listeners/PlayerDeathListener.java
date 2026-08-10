@@ -5,13 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 import org.turbojax.altarroles.Role;
 import org.turbojax.altarroles.util.PlayerHelper;
 import org.turbojax.altarroles.weapons.WeaponManager;
 
 public class PlayerDeathListener implements Listener {
     @EventHandler
-    public void onDeath(PlayerDeathEvent event) {
+    public void changeRoles(PlayerDeathEvent event) {
         Player dead = event.getPlayer();
         Player killer = dead.getKiller();
 
@@ -36,5 +37,14 @@ public class PlayerDeathListener implements Listener {
 
         // Converting the dead player to the killer's team
         PlayerHelper.setRole(dead, killerRole.toTemp());
+    }
+
+    @EventHandler
+    public void applyHiddenRot(PlayerDeathEvent event) {
+        Player dead = event.getPlayer();
+
+        if (!dead.hasPotionEffect(PotionEffectType.UNLUCK)) return;
+
+        PlayerHelper.setHiddenRot(dead, true);
     }
 }
