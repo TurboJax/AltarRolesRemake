@@ -26,10 +26,8 @@ public class PlayerHelper {
         DataManager.setMemberCount(oldRole, DataManager.getMemberCount(oldRole, true) - 1);
         DataManager.setMemberCount(role, DataManager.getMemberCount(role, true) + 1);
 
-        // Adding the player to the scoreboard if the team is revealed
-        if (MainConfig.isRevealed(role)) {
-            AltarRoles.getTeam(role).addPlayer(player);
-        }
+        // Adding the player to the team
+        AltarRoles.getTeam(role).addPlayer(player);
 
         // Saving the new role
         player.getPersistentDataContainer().set(ROLE_KEY, CustomPDCTypes.ROLE, role);

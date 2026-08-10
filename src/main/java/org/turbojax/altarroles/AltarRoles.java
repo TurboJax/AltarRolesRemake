@@ -2,6 +2,7 @@ package org.turbojax.altarroles;
 
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import java.util.stream.Stream;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
@@ -46,8 +47,13 @@ public final class AltarRoles extends JavaPlugin {
             team = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(key);
         }
 
-        // Setting the team's color
-        team.color(MainConfig.getColor(role));
+        // Setting the team's color if they're revealed.
+        // If the team isn't revealed, their color is white
+        if (MainConfig.isRevealed(role)) {
+            team.color(MainConfig.getColor(role));
+        } else {
+            team.color(NamedTextColor.WHITE);
+        }
 
         return team;
     }
