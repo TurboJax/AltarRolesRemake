@@ -330,10 +330,13 @@ public class AltarRolesCommand {
     public int reload(CommandContext<CommandSourceStack> ctx) {
         CommandSender sender = ctx.getSource().getSender();
 
+        // Reloading configs
         MainConfig.load();
-        AltarRoles.updateColors();
 
-        sender.sendMessage(mm.deserialize("<green>Reloaded AtlarRoles"));
+        // Updating team colors
+        Stream.of(Role.values()).forEach(AltarRoles::getTeam);
+
+        sender.sendMessage(mm.deserialize("<green>Reloaded AltarRoles"));
         return 1;
     }
 
