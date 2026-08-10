@@ -1,0 +1,20 @@
+Split into api and paper implementations
+
+Roles:
+- Pale Rot
+  - deal 1.5x damage from behind
+  - not targeted by creakings
+  - rotten flesh has 4 hunger, 10 saturation, gives regen 1 for 5 seconds, and absorption 1 for 2 minutes
+- Vampire
+  - Hunger 1 and slowness 1 during day at ability strength 2
+  - speed 1 and strength 1 at night with ability strength 1
+  - speed 2 and strength 2 at night with ability strength 2
+  - Receive regen 1 for 4 seconds on kill
+  - Can eat player heads.  Crouch to place them.
+
+World Events:
+- eternal night
+- bloodmoon
+
+Hidden rot:
+- Retexture bad luck
