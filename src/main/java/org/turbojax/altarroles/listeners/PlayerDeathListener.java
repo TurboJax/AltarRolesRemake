@@ -15,6 +15,9 @@ public class PlayerDeathListener implements Listener {
         Player dead = event.getPlayer();
         Player killer = dead.getKiller();
 
+        // Skipping players who died to something other than a player
+        if (killer == null) return;
+
         Role deadRole = PlayerHelper.getRole(dead);
         Role killerRole = PlayerHelper.getRole(killer);
 
