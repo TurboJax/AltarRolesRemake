@@ -1,9 +1,7 @@
 package org.turbojax.altarroles;
 
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import java.util.Map;
 import java.util.stream.Stream;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
@@ -39,22 +37,19 @@ public final class AltarRoles extends JavaPlugin {
 
     public static Team getTeam(Role role) {
         String key = role.name().toLowerCase();
+
+        // Getting an existing team
         Team team = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(key);
+
+        // Creating the team if it doesn't exist
         if (team == null) {
-            return Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(key);
+            team = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(key);
         }
 
+        // Setting the team's color
+        team.color(MainConfig.getColor(role));
+
         return team;
-    }
-
-    public static void setTeamColor(Team team, Role role) {
-        team.prefix(Component.text("", MainConfig.getColor(role)));
-    }
-
-    public static void updateColors() {
-        Stream.of(Role.values())
-            .map(r -> Map.entry(r, getTeam(r)))
-            .forEach(e -> setTeamColor(e.getValue(), e.getKey()));
     }
 
     @Override
