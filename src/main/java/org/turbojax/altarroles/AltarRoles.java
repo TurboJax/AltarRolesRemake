@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.turbojax.altarroles.commands.AltarRolesCommand;
 import org.turbojax.altarroles.listeners.PlayerDeathListener;
 import org.turbojax.altarroles.listeners.PlayerJoinListener;
+import org.turbojax.altarroles.listeners.PlayerMoveListener;
 
 public final class AltarRoles extends JavaPlugin {
     public static final Logger LOGGER = LoggerFactory.getLogger("AltarRoles");
@@ -30,6 +31,7 @@ public final class AltarRoles extends JavaPlugin {
         // Registering event handlers
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
 
         // Registering the teams
         Stream.of(Role.values()).forEach(AltarRoles::getTeam);
