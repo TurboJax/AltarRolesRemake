@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class DataManager {
     public static final AltarRoles plugin = JavaPlugin.getPlugin(AltarRoles.class);
@@ -62,6 +63,15 @@ public class DataManager {
      * @return Whether or not the config was successfully written.
      */
     public static boolean save() {
+        return save(false);
+    }
+
+    /**
+     * Writes the config to the file.
+     * 
+     * @return Whether or not the config was successfully written.
+     */
+    public static boolean save(boolean quiet) {
         // Not doing anything if the plugin isn't enabled
         if (!plugin.isEnabled()) {
             AltarRoles.LOGGER.error("{} not loaded, cannot save {}.", plugin.getName(), file.getName());
@@ -80,7 +90,7 @@ public class DataManager {
         // Saving the config
         try {
             config.save(file);
-            AltarRoles.LOGGER.info("Saved {}", file.getName());
+            if (!quiet) AltarRoles.LOGGER.info("Saved {}", file.getName());
             return true;
         } catch (IOException e) {
             AltarRoles.LOGGER.warn("Could not save {}.  Make sure the user has write permissions.", file.getName());
@@ -100,7 +110,7 @@ public class DataManager {
     public static void setMemberCount(Role role, int count) {
         config.set("members." + role.name().toLowerCase(), count);
 
-        save();
+        save(true);
     }
 
     // Doesn't actually require data.yml, but it goes with all the stuff that's in here.
@@ -120,11 +130,13 @@ public class DataManager {
         return config.getStringList("to_reveal")
             .stream()
             .map(UUID::fromString)
-            .toList();
+            .collect(Collectors.toList());
     }
 
     public static void setPlayersToRevealRot(List<UUID> players) {
         config.set("to_reveal", players.stream().map(UUID::toString).toList());
+
+        save(true);
     }
 
     public static void addPlayerToRevealRot(UUID player) {
@@ -145,6 +157,8 @@ public class DataManager {
 
     public static void setAbilityStrength(int strength) {
         config.set("ability_strength", strength);
+
+        save(true);
     }
 
     public static void applyUpdates() {}
