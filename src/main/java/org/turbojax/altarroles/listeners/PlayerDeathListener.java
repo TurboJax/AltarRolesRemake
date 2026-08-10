@@ -26,7 +26,7 @@ public class PlayerDeathListener implements Listener {
         }
 
         // True roles cannot be converted by normal kills
-        if (!deadRole.isTrue()) return;
+        if (deadRole.isTrue()) return;
 
         // Humans cannot convert people back to human
         if (killerRole.isHuman()) return;
