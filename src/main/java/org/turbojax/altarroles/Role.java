@@ -57,12 +57,12 @@ public enum Role {
 
     public Component prettyName() {
         return switch (this) {
-            case TEMP_HUMAN -> Component.text("Human", MainConfig.getColor(this));
-            case TRUE_HUMAN -> Component.text("Human", MainConfig.getColor(this));
-            case TEMP_VAMPIRE -> Component.text("Vampire", MainConfig.getColor(this));
-            case TRUE_VAMPIRE -> Component.text("Vampire", MainConfig.getColor(this));
-            case TEMP_PALE_ROT -> Component.text("Pale Rot", MainConfig.getColor(this));
-            case TRUE_PALE_ROT -> Component.text("Pale Rot", MainConfig.getColor(this));
+            case TEMP_HUMAN -> Component.text("Temp Human", MainConfig.getColor(this));
+            case TRUE_HUMAN -> Component.text("True Human", MainConfig.getColor(this));
+            case TEMP_VAMPIRE -> Component.text("Temp Vampire", MainConfig.getColor(this));
+            case TRUE_VAMPIRE -> Component.text("True Vampire", MainConfig.getColor(this));
+            case TEMP_PALE_ROT -> Component.text("Temp Pale Rot", MainConfig.getColor(this));
+            case TRUE_PALE_ROT -> Component.text("True Pale Rot", MainConfig.getColor(this));
         };
     }
 
