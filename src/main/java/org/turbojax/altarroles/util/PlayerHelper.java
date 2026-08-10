@@ -4,7 +4,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.turbojax.altarroles.AltarRoles;
 import org.turbojax.altarroles.DataManager;
+import org.turbojax.altarroles.MainConfig;
 import org.turbojax.altarroles.Role;
 
 public class PlayerHelper {
@@ -23,6 +25,11 @@ public class PlayerHelper {
         // Updating member counts
         DataManager.setMemberCount(oldRole, DataManager.getMemberCount(oldRole, true) - 1);
         DataManager.setMemberCount(role, DataManager.getMemberCount(role, true) + 1);
+
+        // Adding the player to the scoreboard if the team is revealed
+        if (MainConfig.isRevealed(role)) {
+            AltarRoles.getTeam(role).addPlayer(player);
+        }
 
         // Saving the new role
         player.getPersistentDataContainer().set(ROLE_KEY, CustomPDCTypes.ROLE, role);
