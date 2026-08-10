@@ -13,8 +13,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 import org.turbojax.altarroles.AltarRoles;
 import org.turbojax.altarroles.DataManager;
 import org.turbojax.altarroles.MainConfig;
@@ -376,6 +378,19 @@ public class AltarRolesCommand {
 
         MainConfig.setRevealed(team, true);
 
+        OfflinePlayer[] players = Bukkit.getOfflinePlayers();
+
+        Team bukkitTempTeam = AltarRoles.getTeam(team.toTemp());
+        Team bukkitTrueTeam = AltarRoles.getTeam(team.toTrue());
+
+        Stream.of(players)
+            .filter(p -> PlayerHelper.getRole(p) == team.toTemp())
+            .forEach(bukkitTempTeam::addPlayer);
+
+        Stream.of(players)
+            .filter(p -> PlayerHelper.getRole(p) == team.toTrue())
+            .forEach(bukkitTrueTeam::addPlayer);
+
         sender.sendMessage(Component.text("Revealed the ").append(team.prettyName()).append(Component.text(" team", NamedTextColor.WHITE)));
         return 1;
     }
@@ -384,6 +399,19 @@ public class AltarRolesCommand {
         CommandSender sender = ctx.getSource().getSender();
 
         MainConfig.setRevealed(team, false);
+
+        OfflinePlayer[] players = Bukkit.getOfflinePlayers();
+
+        Team bukkitTempTeam = AltarRoles.getTeam(team.toTemp());
+        Team bukkitTrueTeam = AltarRoles.getTeam(team.toTrue());
+
+        Stream.of(players)
+            .filter(p -> PlayerHelper.getRole(p) == team.toTemp())
+            .forEach(bukkitTempTeam::removePlayer);
+
+        Stream.of(players)
+            .filter(p -> PlayerHelper.getRole(p) == team.toTrue())
+            .forEach(bukkitTrueTeam::removePlayer);
 
         sender.sendMessage(Component.text("Hid the ").append(team.prettyName()).append(Component.text(" team", NamedTextColor.WHITE)));
         return 1;
