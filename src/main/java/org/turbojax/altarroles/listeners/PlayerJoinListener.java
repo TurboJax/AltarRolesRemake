@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.turbojax.altarroles.AltarRoles;
 import org.turbojax.altarroles.DataManager;
 import org.turbojax.altarroles.Role;
 import org.turbojax.altarroles.util.PlayerHelper;
@@ -21,11 +22,13 @@ public class PlayerJoinListener implements Listener {
     }
 
     @EventHandler
-    public void incrementHumanCount(PlayerJoinEvent event) {
+    public void addNewHuman(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
         if (player.hasPlayedBefore()) return;
 
         DataManager.setMemberCount(Role.TEMP_HUMAN, DataManager.getMemberCount(Role.TEMP_HUMAN, true) + 1);
+
+        AltarRoles.getTeam(Role.TEMP_HUMAN).addPlayer(player);
     }
 }
